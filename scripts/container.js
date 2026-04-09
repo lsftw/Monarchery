@@ -109,13 +109,32 @@ Container.prototype.insideBounds = function(entity) {
 	return !outsideBounds;
 };
 
+function areEntitiesColliding(entity1, entity2) {
+	var left1 = entity1.px;
+	var right1 = entity1.px + entity1.sx;
+	var top1 = entity1.py;
+	var bottom1 = entity1.py + entity1.sy;
+	var left2 = entity2.px;
+	var right2 = entity2.px + entity2.sx;
+	var top2 = entity2.py;
+	var bottom2 = entity2.py + entity2.sy;
+
+	var horizontallyContained = 
+		(left1 >= left2 && left1 <= right2) || 
+		(right1 >= left2 && right1 <= right2);
+	var verticallyContained = 
+		(top1 >= top2 && top1 <= bottom2) || 
+		(bottom1 >= top2 && bottom1 <= bottom2);
+
+	return horizontallyContained && verticallyContained;
+}
+
 // currently handles collideable entity vs health entity damage logic
 Container.prototype.handleCollisions = function() {
 	var collideableEntities = this.entities.filter((entity) => entity.hasCollision);
 	collideableEntities.forEach(function(entity1) {
 		this.entities.forEach(function(entity2) {
-			if (entity1 != entity2 && entity2.health > 0 && entity1.team != entity2.team) {
-				// TODO check if collided
+			if (entity1 != entity2 && entity2.health > 0 && entity1.team != entity2.team && areEntitiesColliding(entity1, entity2)) {
 				console.log(entity1.name + ' hits ' + entity2.name);
 				entity2.health -= entity1.damage;
 				console.log(entity2.health);

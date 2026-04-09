@@ -29,7 +29,7 @@ function Entity(propertyMap) {
 	for (var property in propertyMap) {
 		this[property] = propertyMap[property];
 	}
-	console.log(this);
+	//console.log(this);
 }
 
 Entity.prototype.draw = function (context) {
