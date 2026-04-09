@@ -19,7 +19,7 @@ function Entity(propertyMap) {
 		// special handling flags
 		listenToKeys: false,
 		keepInBounds: false,
-		collideable: false
+		collideable: false // TODO rename, means projectile atm
 	};
 	for (var property in defaultValues) {
 		if (isUndefined(propertyMap) || isUndefined(propertyMap[property])) {
@@ -29,7 +29,6 @@ function Entity(propertyMap) {
 	for (var property in propertyMap) {
 		this[property] = propertyMap[property];
 	}
-	//console.log(this);
 }
 
 Entity.prototype.draw = function (context) {

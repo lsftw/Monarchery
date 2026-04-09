@@ -5,7 +5,6 @@ function Container(width, height) {
 	this.height = height;
 	this.entities = [];
 	this.entitiesToAdd = [];
-	//this.entitiesToRemove = [];
 	this.keysDown = [];
 }
 
@@ -22,7 +21,6 @@ Container.prototype.draw = function (context) {
 Container.prototype.update = function () {
 	this.handleUserInput();
 
-	// TODO remove entities
 	this.entities.forEach(function(entity) {
 		entity.update();
 	});
@@ -99,8 +97,6 @@ Container.prototype.removeEntitiesOutsideBounds = function () {
 			i--; // fix array indices
 		}
 	}
-	//var after = this.entities.length;
-	//console.log(after);
 };
 
 Container.prototype.insideBounds = function(entity) {
@@ -138,6 +134,7 @@ Container.prototype.handleCollisions = function() {
 				console.log(entity1.name + ' hits ' + entity2.name);
 				entity2.health -= entity1.damage;
 				console.log(entity2.health);
+				// TODO remove projectile after collision
 			}
 		}, this);
 	}, this);
